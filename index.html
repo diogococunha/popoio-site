@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>Popoio - Gestión Digital para Clínicas Médicas</title>
+  <meta name="description" content="Software de gestión clínica versión 2.0. CRM, paneles de control y alertas automáticas para clínicas dentales, oftalmología, estética y fisioterapia." />
+  <meta name="keywords" content="software médico, gestión clínica, CRM médico, software dental, software clínica, transformación digital clínicas, recordatorios WhatsApp, agenda médica, software sanitario España" />
+  <link rel="canonical" href="https://popoio.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Popoio - Gestión Digital para Clínicas Médicas" />
+  <meta property="og:description" content="Software de gestión clínica versión 2.0. CRM, paneles de control y alertas automáticas para clínicas dentales, oftalmología, estética y fisioterapia." />
+  <meta property="og:url" content="https://popoio.com/" />
+  <meta property="og:site_name" content="Popoio" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Popoio - Gestión Digital para Clínicas Médicas" />
+  <meta name="twitter:description" content="Software de gestión clínica versión 2.0. CRM, paneles de control y alertas automáticas para clínicas dentales, oftalmología, estética y fisioterapia." />
+  <link rel="icon" type="image/png" href="Popoio - Logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --background: hsl(38, 30%, 96%);
+      --foreground: hsl(176, 60%, 15%);
+      --primary: hsl(176, 60%, 25%);
+      --primary-light: hsl(176, 60%, 92%);
+      --primary-foreground: hsl(38, 30%, 96%);
+      --secondary: hsl(38, 40%, 90%);
+      --secondary-foreground: hsl(176, 60%, 25%);
+      --accent: hsl(176, 35%, 85%);
+      --muted: hsl(38, 20%, 90%);
+      --muted-foreground: hsl(176, 30%, 40%);
+      --border: hsl(176, 20%, 85%);
+      --card: hsl(0, 0%, 100%);
+      --card-foreground: hsl(176, 60%, 15%);
+      --ring: hsl(176, 60%, 25%);
+      --radius: 0.75rem;
+      --teal-400: #2dd4bf;
+      --teal-500: #14b8a6;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    img, video { max-width: 100%; display: block; }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--primary); color: var(--primary-foreground);
+      font-weight: 600; border-radius: 9999px; padding: 0.75rem 2rem;
+      font-size: 1rem; transition: all 0.3s ease;
+      box-shadow: 0 10px 25px -5px rgba(20,100,90,0.25);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -10px rgba(20,100,90,0.3); }
+    .btn-primary.lg { padding: 1rem 2.5rem; font-size: 1.1rem; height: 3.5rem; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--secondary); color: var(--secondary-foreground);
+      font-weight: 600; border-radius: 9999px; padding: 0.75rem 2rem; font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover { transform: scale(1.05); }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.8); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); transition: all 0.3s;
+    }
+    .navbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 4rem; max-width: 1200px; margin: 0 auto; padding: 0 1rem;
+    }
+    .navbar-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.25rem; }
+    .navbar-logo img { height: 32px; object-fit: contain; }
+    .navbar-links { display: none; align-items: center; gap: 2rem; font-size: 0.875rem; font-weight: 500; color: var(--muted-foreground); }
+    .navbar-links a:hover { color: var(--primary); transition: color 0.2s; }
+    .navbar-cta .btn-primary { padding: 0.5rem 1.5rem; font-size: 0.875rem; box-shadow: 0 4px 15px rgba(20,100,90,0.2); }
+    @media(min-width:768px){ .navbar-links { display: flex; } }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; align-items: center;
+      padding: 8rem 0 6rem; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: -1;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--background) 0%, rgba(255,255,255,0.85) 50%, hsla(176,50%,90%,0.4) 100%);
+    }
+    .hero-bg video {
+      width: 100%; height: 100%; object-fit: cover; opacity: 0.15;
+    }
+    .hero .container { position: relative; z-index: 1; text-align: center; }
+    .hero-badge {
+      display: inline-block; background: var(--primary-light); color: var(--primary);
+      font-size: 0.8rem; font-weight: 600; padding: 0.35rem 1rem; border-radius: 9999px;
+      margin-bottom: 1.5rem; letter-spacing: 0.05em;
+    }
+    .hero-badge span { background: linear-gradient(90deg, var(--primary), var(--teal-400)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--muted-foreground); max-width: 600px;
+      margin: 0 auto 2.5rem; line-height: 1.7;
+    }
+    /* Decorative blobs */
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+      pointer-events: none; z-index: -1;
+    }
+    .blob-1 { width: 400px; height: 400px; background: var(--teal-400); top: -100px; right: -100px; }
+    .blob-2 { width: 300px; height: 300px; background: hsl(38,60%,80%); bottom: -50px; left: -80px; }
+
+    /* ─── SOLUTIONS ─── */
+    .solutions { padding: 6rem 0; background: white; position: relative; }
+    .section-header { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 1rem;
+    }
+    .section-header p { font-size: 1.15rem; color: var(--muted-foreground); }
+
+    .solutions-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+    }
+    @media(min-width:768px){ .solutions-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .sol-card {
+      border-radius: 1.5rem; padding: 2.5rem; position: relative;
+      overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--border);
+    }
+    .sol-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .sol-card.featured {
+      background: linear-gradient(135deg, var(--primary), hsl(176,50%,35%));
+      color: white; border: none; grid-column: 1 / -1;
+    }
+    .sol-card.featured p { color: rgba(255,255,255,0.8); }
+    .sol-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .sol-card p { font-size: 1.05rem; color: var(--muted-foreground); max-width: 500px; }
+    .sol-card .sol-icon {
+      width: 48px; height: 48px; border-radius: 12px; display: flex;
+      align-items: center; justify-content: center; margin-bottom: 1rem;
+      background: var(--primary-light); color: var(--primary); font-size: 1.5rem;
+    }
+    .sol-card.featured .sol-icon { background: rgba(255,255,255,0.2); color: white; }
+
+    .sol-card.export-card {
+      background: linear-gradient(135deg, hsl(176,50%,20%), hsl(176,60%,15%));
+      color: white; border: none;
+    }
+    .sol-card.export-card p { color: rgba(255,255,255,0.7); }
+    .sol-card.export-card .sol-icon { background: rgba(255,255,255,0.15); color: white; }
+
+    /* ─── PRICING ─── */
+    .pricing { padding: 6rem 0; background: hsla(38,40%,90%,0.3); }
+    .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 800px; margin: 0 auto; }
+    @media(min-width:640px){ .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .price-card {
+      background: var(--card); border-radius: 1.5rem; padding: 2rem;
+      border: 1px solid var(--border); display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .price-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .price-card.highlight {
+      background: linear-gradient(135deg, var(--primary), hsl(176,50%,35%));
+      color: white; border: none; position: relative; overflow: hidden;
+    }
+    .price-card.highlight::before {
+      content: ''; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .price-card h3 {
+      font-size: 1.15rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 0.5rem;
+    }
+    .price-card.highlight h3 { color: var(--teal-400); }
+    .price-card .price-desc { font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 1.5rem; }
+    .price-card.highlight .price-desc { color: rgba(255,255,255,0.7); }
+    .price-card .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; flex: 1; margin-bottom: 2rem; }
+    .price-card .price-features li {
+      display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem;
+    }
+    .price-card .price-features li::before {
+      content: '✓'; display: flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--primary-light); color: var(--primary);
+      font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+    }
+    .price-card.highlight .price-features li::before {
+      background: rgba(255,255,255,0.2); color: white;
+    }
+    .price-card .btn-primary { width: 100%; }
+    .price-card.highlight .btn-primary { background: white; color: var(--primary); }
+
+    /* ─── SPECIALTIES ─── */
+    .specialties { padding: 6rem 0; }
+    .spec-content { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+    @media(min-width:768px){ .spec-content { grid-template-columns: 1fr 1fr; } }
+    .spec-text h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .spec-text p { font-size: 1.1rem; color: var(--muted-foreground); margin-bottom: 2rem; }
+    .spec-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .spec-tag {
+      padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500;
+      border: 1px solid var(--border); background: white; color: var(--foreground);
+      transition: all 0.2s;
+    }
+    .spec-tag:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .spec-visual {
+      background: linear-gradient(135deg, var(--primary-light), hsla(176,50%,85%,0.5));
+      border-radius: 2rem; padding: 2rem; position: relative; min-height: 300px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .spec-status {
+      background: rgba(255,255,255,0.8); backdrop-filter: blur(20px);
+      padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .spec-status-label { font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+    .spec-status h4 { font-size: 1.5rem; font-weight: 700; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { padding: 6rem 0; background: white; }
+    .testimonials-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media(min-width:640px){ .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
+    .test-card {
+      background: var(--background); border-radius: 1.5rem; padding: 2rem;
+      border: 1px solid var(--border);
+    }
+    .test-card blockquote { font-size: 1rem; color: var(--foreground); font-style: italic; margin-bottom: 1.5rem; line-height: 1.7; }
+    .test-author { display: flex; align-items: center; gap: 0.75rem; }
+    .test-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--teal-400));
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 0.9rem;
+    }
+    .test-name { font-weight: 600; font-size: 0.9rem; }
+    .test-role { font-size: 0.8rem; color: var(--muted-foreground); }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      padding: 6rem 0; text-align: center; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--foreground), hsl(176,60%,12%));
+      color: white;
+    }
+    .cta-section h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 1rem;
+    }
+    .cta-section p { font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-section .btn-primary { background: white; color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .cta-section .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .cta-blob {
+      position: absolute; border-radius: 50%; opacity: 0.08; pointer-events: none;
+      background: var(--teal-400); filter: blur(80px);
+    }
+    .cta-blob-1 { width: 400px; height: 400px; top: -150px; left: -100px; }
+    .cta-blob-2 { width: 300px; height: 300px; bottom: -100px; right: -80px; }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      padding: 4rem 0 2rem; border-top: 1px solid var(--border);
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    @media(max-width:640px){ .footer-grid { grid-template-columns: 1fr; } }
+    .footer-brand p { font-size: 0.875rem; color: var(--muted-foreground); max-width: 320px; line-height: 1.6; }
+    .footer-col h3 { font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col a { font-size: 0.875rem; color: var(--muted-foreground); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--primary); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 1.5rem;
+      font-size: 0.8rem; color: var(--muted-foreground); text-align: center;
+    }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: white; border-radius: 1rem; padding: 2rem; max-width: 425px; width: 100%;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.2); position: relative;
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: none; } }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem; background: none; font-size: 1.25rem;
+      color: var(--muted-foreground); width: 32px; height: 32px; display: flex;
+      align-items: center; justify-content: center; border-radius: 50%;
+    }
+    .modal-close:hover { background: var(--muted); }
+    .modal h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .modal .modal-desc { font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.35rem; }
+    .form-group label .optional { font-size: 0.75rem; font-weight: 400; color: var(--muted-foreground); }
+    .form-group input, .form-group select {
+      width: 100%; padding: 0.6rem 0.75rem; border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 0.9rem; font-family: inherit;
+      background: white; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px hsla(176,60%,25%,0.1);
+    }
+    .modal .btn-primary { width: 100%; margin-top: 0.5rem; }
+    .modal .form-note { font-size: 0.75rem; color: var(--muted-foreground); text-align: center; margin-top: 0.75rem; }
+
+    /* Success state */
+    .modal-success { text-align: center; padding: 2rem 1rem; }
+    .modal-success .check-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .modal-success h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .modal-success p { color: var(--muted-foreground); }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ─── MOBILE NAV ─── */
+    .mobile-toggle { display: flex; align-items: center; justify-content: center; background: none; width: 40px; height: 40px; }
+    .mobile-toggle svg { width: 24px; height: 24px; color: var(--foreground); }
+    @media(min-width:768px){ .mobile-toggle { display: none; } }
+    .mobile-nav {
+      display: none; position: fixed; top: 4rem; left: 0; right: 0;
+      background: white; border-bottom: 1px solid var(--border); padding: 1rem;
+      z-index: 99; flex-direction: column; gap: 1rem; text-align: center;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { padding: 0.75rem; font-weight: 500; color: var(--foreground); }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Popoio",
+    "url": "https://popoio.com",
+    "description": "Software de gestión digital para clínicas médicas en España",
+    "address": { "@type": "PostalAddress", "addressCountry": "ES" },
+    "contactPoint": { "@type": "ContactPoint", "contactType": "Sales", "email": "diogo@468cap.com" }
+  }
+  </script>
+</head>
+<body>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="navbar-logo">
+      <img src="Popoio - Logo.png" alt="Popoio" />
+    </a>
+    <div class="navbar-links">
+      <a href="#soluciones">Soluciones</a>
+      <a href="#precios">Precios</a>
+      <a href="#especialidades">Especialidades</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <div class="navbar-cta">
+        <button class="btn-primary" onclick="openModal()">Empezar Ahora</button>
+      </div>
+      <button class="mobile-toggle" onclick="toggleMobileNav()" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#soluciones" onclick="closeMobileNav()">Soluciones</a>
+  <a href="#precios" onclick="closeMobileNav()">Precios</a>
+  <a href="#especialidades" onclick="closeMobileNav()">Especialidades</a>
+  <button class="btn-primary" onclick="openModal();closeMobileNav()">Empezar Ahora</button>
+</div>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline>
+      <source src="cinematic_pan_of_a_modern_dental_clinic_reception.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="container">
+    <div class="fade-up">
+      <div class="hero-badge">Software de gestión clínica <span>versión 2.0</span></div>
+      <h1>Gestión digital para<br>clínicas médicas</h1>
+      <p class="hero-sub">Popoio simplifica la gestión digital con tecnología de vanguardia. Paneles de control inteligentes y alertas automáticas en una experiencia visual increíble.</p>
+      <button class="btn-primary lg" onclick="openModal()">Empezar Ahora</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SOLUTIONS ═══════ -->
+<section class="solutions" id="soluciones">
+  <div class="container">
+    <div class="section-header fade-up">
+      <h2>Tecnología que se siente mágica</h2>
+      <p>Herramientas potentes envueltas en una interfaz que da gusto usar.</p>
+    </div>
+    <div class="solutions-grid">
+      <div class="sol-card featured fade-up">
+        <div class="sol-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h3>Paneles de Control en Tiempo Real</h3>
+        <p>Visualiza el pulso de tu clínica con gráficos animados y datos en vivo. Toma el control total.</p>
+      </div>
+      <div class="sol-card fade-up">
+        <div class="sol-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>CRM Intuitivo</h3>
+        <p>Gestiona pacientes como si usaras tu app favorita. Simple, rápido y bonito.</p>
+      </div>
+      <div class="sol-card fade-up">
+        <div class="sol-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </div>
+        <h3>Alertas Smart</h3>
+        <p>WhatsApp y Email automáticos. Tus pacientes nunca olvidarán una cita.</p>
+      </div>
+      <div class="sol-card export-card fade-up">
+        <div class="sol-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        </div>
+        <h3>Tu Excel de siempre</h3>
+        <p>Sin ataduras. Descarga todos tus datos y trabaja como siempre has hecho. Compatibilidad total 100%.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PRICING ═══════ -->
+<section class="pricing" id="precios">
+  <div class="container">
+    <div class="section-header fade-up">
+      <h2>Planes simples y transparentes</h2>
+      <p>Invierte en el crecimiento de tu clínica con tarifas claras.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Basic Plan -->
+      <div class="price-card fade-up">
+        <h3>Plan Básico</h3>
+        <p class="price-desc">Perfecto para clínicas que están empezando a digitalizarse.</p>
+        <ul class="price-features">
+          <li>Gestión de hasta 500 pacientes</li>
+          <li>Agenda básica de citas</li>
+          <li>Recordatorios por Email</li>
+          <li>Panel de control estándar</li>
+          <li>Soporte por Email</li>
+          <li>Formación al equipo</li>
+        </ul>
+        <button class="btn-primary" onclick="openModal()">Empezar Ahora</button>
+      </div>
+      <!-- Custom Plan -->
+      <div class="price-card highlight fade-up">
+        <h3>Plan Personalizado</h3>
+        <p class="price-desc">Para clínicas con múltiples sedes o necesidades especiales.</p>
+        <ul class="price-features">
+          <li>Pacientes ilimitados</li>
+          <li>Múltiples doctores y agendas</li>
+          <li>Recordatorios por WhatsApp</li>
+          <li>Paneles avanzados y KPIs</li>
+          <li>Soporte prioritario 24/7</li>
+          <li>Integración con maquinaria</li>
+        </ul>
+        <button class="btn-secondary" onclick="openModal()">Empezar Ahora</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SPECIALTIES ═══════ -->
+<section class="specialties" id="especialidades">
+  <div class="container">
+    <div class="spec-content">
+      <div class="spec-visual fade-up">
+        <div class="spec-status">
+          <div class="spec-status-label">Estado de la Clínica</div>
+          <h4>Operativo 100%</h4>
+        </div>
+      </div>
+      <div class="spec-text fade-up">
+        <h2>Diseñado para tu especialidad</h2>
+        <p>No importa si eres dentista, fisioterapeuta o dermatólogo. Popoio se adapta como un guante.</p>
+        <div class="spec-tags">
+          <span class="spec-tag">Odontología</span>
+          <span class="spec-tag">Oftalmología</span>
+          <span class="spec-tag">Estética</span>
+          <span class="spec-tag">Fisioterapia</span>
+          <span class="spec-tag">Podología</span>
+          <span class="spec-tag">Medicina General</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TESTIMONIALS ═══════ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header fade-up">
+      <h2>Opiniones de profesionales reales</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="test-card fade-up">
+        <blockquote>"Desde que usamos Popoio, hemos optimizado todos nuestros procesos. La mejor inversión del año."</blockquote>
+        <div class="test-author">
+          <div class="test-avatar">MR</div>
+          <div>
+            <div class="test-name">Dr. Marcos Ruiz</div>
+            <div class="test-role">Director Médico, Clínica Ruiz</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card fade-up">
+        <blockquote>"La interfaz es tan intuitiva que mi equipo aprendió a usarla en una tarde. Soporte de 10."</blockquote>
+        <div class="test-author">
+          <div class="test-avatar">CE</div>
+          <div>
+            <div class="test-name">Centro de Estética Avanzada</div>
+            <div class="test-role">Madrid</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CTA ═══════ -->
+<section class="cta-section">
+  <div class="cta-blob cta-blob-1"></div>
+  <div class="cta-blob cta-blob-2"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="fade-up">
+      <h2>¿Listo para el siguiente nivel?</h2>
+      <p>Deja atrás el papel y el software de los 90. Bienvenido al futuro de la gestión clínica.</p>
+      <button class="btn-primary lg" onclick="openModal()">Empezar Ahora</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo" style="margin-bottom:1rem;">
+          <img src="Popoio - Logo.png" alt="Popoio" />
+        </div>
+        <p>Simplificando la gestión digital para pequeñas clínicas médicas. Tecnología humana para profesionales de la salud.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Compañía</h3>
+        <ul>
+          <li><a href="#">Sobre Nosotros</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Términos</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Popoio. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════ MODAL ═══════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalForm">
+      <h3>Empieza con Popoio</h3>
+      <p class="modal-desc">Déjanos tus datos y te contactaremos para configurar tu cuenta.</p>
+      <form onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre" required id="formName" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tu@email.com" required id="formEmail" />
+        </div>
+        <div class="form-group">
+          <label>Teléfono <span class="optional">(Opcional)</span></label>
+          <input type="tel" placeholder="+34 600 000 000" id="formPhone" />
+        </div>
+        <div class="form-group">
+          <label>Nombre de la Clínica</label>
+          <input type="text" placeholder="Nombre de tu clínica" required id="formClinic" />
+        </div>
+        <button type="submit" class="btn-primary">Enviar</button>
+        <p class="form-note">Los datos se guardan en la base de datos</p>
+      </form>
+    </div>
+    <div id="modalSuccess" class="modal-success" style="display:none;">
+      <div class="check-icon">✅</div>
+      <h3>¡Recibido!</h3>
+      <p>Nos pondremos en contacto contigo pronto.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Mobile nav
+  function toggleMobileNav() { document.getElementById('mobileNav').classList.toggle('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // Modal
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modalForm').style.display = 'block';
+    document.getElementById('modalSuccess').style.display = 'none';
+  }
+  function closeModal(e) {
+    if (e && e.target !== document.getElementById('modalOverlay') && e.type === 'click') return;
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function submitForm(e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('formName').value,
+      email: document.getElementById('formEmail').value,
+      phone: document.getElementById('formPhone').value,
+      clinic: document.getElementById('formClinic').value,
+    };
+    console.log('📋 Datos recibidos:', data);
+    document.getElementById('modalForm').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

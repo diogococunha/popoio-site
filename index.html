@@ -75,6 +75,13 @@
       transition: all 0.3s ease;
     }
     .btn-secondary:hover { transform: scale(1.05); }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent; color: var(--primary);
+      font-weight: 600; border-radius: 9999px; padding: 0.5rem 1.5rem; font-size: 1rem;
+      border: 1px solid var(--border); transition: all 0.3s ease;
+    }
+    .btn-outline:hover { border-color: var(--primary); background: var(--primary-light); }
 
     /* ─── NAVBAR ─── */
     .navbar {
@@ -90,7 +97,9 @@
     .navbar-logo img { height: 32px; object-fit: contain; }
     .navbar-links { display: none; align-items: center; gap: 2rem; font-size: 0.875rem; font-weight: 500; color: var(--muted-foreground); }
     .navbar-links a:hover { color: var(--primary); transition: color 0.2s; }
+    .navbar-cta { display: flex; align-items: center; gap: 0.5rem; }
     .navbar-cta .btn-primary { padding: 0.5rem 1.5rem; font-size: 0.875rem; box-shadow: 0 4px 15px rgba(20,100,90,0.2); }
+    .navbar-cta .btn-outline { padding: 0.5rem 1.25rem; font-size: 0.875rem; }
     @media(min-width:768px){ .navbar-links { display: flex; } }
 
     /* ─── HERO ─── */
@@ -354,6 +363,7 @@
     }
     .mobile-nav.open { display: flex; }
     .mobile-nav a { padding: 0.75rem; font-weight: 500; color: var(--foreground); }
+    .mobile-nav .btn-outline { color: var(--primary); }
   </style>
 
   <script type="application/ld+json">
@@ -383,6 +393,7 @@
     </div>
     <div style="display:flex;align-items:center;gap:0.75rem;">
       <div class="navbar-cta">
+        <a class="btn-outline" href="https://popoio-production.up.railway.app/">Entrar</a>
         <button class="btn-primary" onclick="openModal()">Empezar Ahora</button>
       </div>
       <button class="mobile-toggle" onclick="toggleMobileNav()" aria-label="Menu">
@@ -395,6 +406,7 @@
   <a href="#soluciones" onclick="closeMobileNav()">Soluciones</a>
   <a href="#precios" onclick="closeMobileNav()">Precios</a>
   <a href="#especialidades" onclick="closeMobileNav()">Especialidades</a>
+  <a class="btn-outline" href="https://popoio-production.up.railway.app/" onclick="closeMobileNav()">Entrar</a>
   <button class="btn-primary" onclick="openModal();closeMobileNav()">Empezar Ahora</button>
 </div>
 
